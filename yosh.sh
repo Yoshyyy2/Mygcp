@@ -276,18 +276,14 @@ kv "Proto:"  "${PROTO^^}"
 
 # ===== Protocol URIs =====
 TROJAN_PASS="yosh"
-VLESS_UUID="8024e6ab-5da4-473c-9008-2b3c51f8d697""
-VLESS_UUID_GRPC="8024e6ab-5da4-473c-9008-2b3c51f8d697""
-VMESS_UUID="8024e6ab-5da4-473c-9008-2b3c51f8d697""
+VLESS_UUID="8024e6ab-5da4-473c-9008-2b3c51f8d697"
+VLESS_UUID_GRPC="8024e6ab-5da4-473c-9008-2b3c51f8d697"
+VMESS_UUID="8024e6ab-5da4-473c-9008-2b3c51f8d697"
 
 make_vmess_ws_uri(){
   local host="$1"
-  local json
-  json=$(cat <<JSON
-{"v":"2","ps":"Yosh-VMess-WS","add":"vpn.googleapis.com","port":"443","id":"${VMESS_UUID}","aid":"0","scy":"zero","net":"ws","type":"none","host":"${host}","path":"/vmess","tls":"tls","sni":"vpn.googleapis.com","alpn":"http/1.1","fp":"randomized"}
-JSON
-)
-  base64 <<<"$json" | tr -d '\n' | sed 's/^/vmess:\/\//'
+  local json="{\"v\":\"2\",\"ps\":\"Yosh-VMess-WS\",\"add\":\"vpn.googleapis.com\",\"port\":\"443\",\"id\":\"${VMESS_UUID}\",\"aid\":\"0\",\"scy\":\"zero\",\"net\":\"ws\",\"type\":\"none\",\"host\":\"${host}\",\"path\":\"/vmess\",\"tls\":\"tls\",\"sni\":\"vpn.googleapis.com\",\"alpn\":\"http/1.1\",\"fp\":\"randomized\"}"
+  printf '%s' "$json" | base64 | tr -d '\n' | sed 's/^/vmess:\/\//'
 }
 
 case "$PROTO" in
