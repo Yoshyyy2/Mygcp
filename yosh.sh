@@ -77,16 +77,14 @@ ok "Number   : ${PROJECT_NUMBER}"
 # ===== Protocol =====
 tag "Select Protocol"
 printf "  ${CY}1${R} › VLESS WS\n"
-printf "  ${CY}2${R} › VLESS gRPC\n"
-printf "  ${CY}3${R} › Trojan WS\n"
-printf "  ${CY}4${R} › VMess WS\n"
+printf "  ${CY}2${R} › Trojan WS\n"
+printf "  ${CY}3${R} › VMess WS\n"
 printf "\n"
-read -rp "  $(printf "${CW}Protocol${R} [1-4, default 1]: ")" _p || true
+read -rp "  $(printf "${CW}Protocol${R} [1-3, default 1]: ")" _p || true
 case "${_p:-1}" in
-  2) PROTO="vless-grpc" ; IMAGE="docker.io/yoshyyy/yoshvip:latest" ;;
-  3) PROTO="trojan-ws"  ; IMAGE="docker.io/yoshyyy/yoshvip:latest" ;;
-  4) PROTO="vmess-ws"   ; IMAGE="docker.io/yoshyyy/yoshvip:latest" ;;
-  *) PROTO="vless-ws"   ; IMAGE="docker.io/yoshyyy/yoshvip:latest" ;;
+  2) PROTO="trojan-ws" ; IMAGE="docker.io/yoshyyy/yoshvip:latest" ;;
+  3) PROTO="vmess-ws"  ; IMAGE="docker.io/yoshyyy/yoshvip:latest" ;;
+  *) PROTO="vless-ws"  ; IMAGE="docker.io/yoshyyy/yoshvip:latest" ;;
 esac
 ok "Protocol : ${PROTO^^}"
 
@@ -125,9 +123,9 @@ read -rp "  $(printf "${CW}Service name${R} [default: yoshvip]: ")" _svc || true
 SERVICE="${_svc:-yoshvip}"
 TIMEOUT=3600
 case "$PROTO" in
-  trojan-ws)  PORT=8081 ;;
-  vmess-ws)   PORT=8082 ;;
-  *)          PORT=8080 ;;
+  trojan-ws) PORT=8081 ;;
+  vmess-ws)  PORT=8082 ;;
+  *)         PORT=8080 ;;
 esac
 ok "Service  : ${SERVICE}"
 ok "Port     : ${PORT}"
@@ -170,16 +168,13 @@ UUID="8024e6ab-5da4-473c-9008-2b3c51f8d697"
 
 case "$PROTO" in
   trojan-ws)
-    URI="trojan://${TROJAN_PASS}@vpn.googleapis.com:443?path=%2Ftrojan_yosh&security=tls&host=${HOST}&type=ws#Yosh-Trojan-WS"
+    URI="trojan://${TROJAN_PASS}@firebase-settings.crashlytics.com:443?path=%2FYosh&security=tls&host=${HOST}&type=ws&sni=www.mayabank.ph&headerType=none#Yosh-Trojan-WS"
     ;;
   vless-ws)
-    URI="vless://${UUID}@vpn.googleapis.com:443?path=%2Fvless_yosh&security=tls&encryption=none&host=${HOST}&type=ws#Yosh-VLESS-WS"
-    ;;
-  vless-grpc)
-    URI="vless://${UUID}@vpn.googleapis.com:443?mode=gun&security=tls&encryption=none&type=grpc&serviceName=yosh-grpc&sni=${HOST}#Yosh-VLESS-gRPC"
+    URI="vless://${UUID}@firebase-settings.crashlytics.com:443?path=%2FYosh&security=tls&encryption=none&host=${HOST}&type=ws&sni=www.mayabank.ph&headerType=none#Yosh-VLESS-WS"
     ;;
   vmess-ws)
-    JSON="{\"v\":\"2\",\"ps\":\"Yosh-VMess\",\"add\":\"vpn.googleapis.com\",\"port\":\"443\",\"id\":\"${UUID}\",\"aid\":\"0\",\"scy\":\"zero\",\"net\":\"ws\",\"type\":\"none\",\"host\":\"${HOST}\",\"path\":\"/vmess\",\"tls\":\"tls\",\"sni\":\"vpn.googleapis.com\",\"alpn\":\"http/1.1\",\"fp\":\"randomized\"}"
+    JSON="{\"v\":\"2\",\"ps\":\"Yosh-VMess\",\"add\":\"firebase-settings.crashlytics.com\",\"port\":\"443\",\"id\":\"${UUID}\",\"aid\":\"0\",\"scy\":\"zero\",\"net\":\"ws\",\"type\":\"none\",\"host\":\"${HOST}\",\"path\":\"/Yosh\",\"tls\":\"tls\",\"sni\":\"www.mayabank.ph\",\"alpn\":\"http/1.1\",\"fp\":\"randomized\"}"
     URI="vmess://$(printf '%s' "$JSON" | base64 | tr -d '\n')"
     ;;
 esac
