@@ -280,15 +280,15 @@ make_vmess_ws_uri(){
   local host="$1"
   local json
   json=$(cat <<JSON
-{"v":"2","ps":"Yosh-VMess-WS","add":"vpn.googleapis.com","port":"443","id":"${VMESS_UUID}","aid":"0","scy":"zero","net":"ws","type":"none","host":"${host}","path":"/yosh","tls":"tls","sni":"vpn.googleapis.com","alpn":"http/1.1","fp":"randomized"}
+{"v":"2","ps":"Yosh-VMess-WS","add":"vpn.googleapis.com","port":"443","id":"${VMESS_UUID}","aid":"0","scy":"zero","net":"ws","type":"none","host":"${host}","path":"/vmess","tls":"tls","sni":"vpn.googleapis.com","alpn":"http/1.1","fp":"randomized"}
 JSON
 )
   base64 <<<"$json" | tr -d '\n' | sed 's/^/vmess:\/\//'
 }
 
 case "$PROTO" in
-  trojan-ws)  URI="trojan://${TROJAN_PASS}@vpn.googleapis.com:443?path=%2Fyosh&security=tls&host=${CANONICAL_HOST}&type=ws#Yosh-Trojan-WS" ;;
-  vless-ws)   URI="vless://${VLESS_UUID}@vpn.googleapis.com:443?path=%2Fyosh&security=tls&encryption=none&host=${CANONICAL_HOST}&type=ws#Yosh-VLESS-WS" ;;
+  trojan-ws)  URI="trojan://${TROJAN_PASS}@vpn.googleapis.com:443?path=%2Ftrojan&security=tls&host=${CANONICAL_HOST}&type=ws#Yosh-Trojan-WS" ;;
+  vless-ws)   URI="vless://${VLESS_UUID}@vpn.googleapis.com:443?path=%2Fvless&security=tls&encryption=none&host=${CANONICAL_HOST}&type=ws#Yosh-VLESS-WS" ;;
   vless-grpc) URI="vless://${VLESS_UUID_GRPC}@vpn.googleapis.com:443?mode=gun&security=tls&encryption=none&type=grpc&serviceName=yosh-grpc&sni=${CANONICAL_HOST}#Yosh-VLESS-gRPC" ;;
   vmess-ws)   URI="$(make_vmess_ws_uri "${CANONICAL_HOST}")" ;;
 esac
