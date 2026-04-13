@@ -36,17 +36,18 @@ spin(){
   local label="$1"; shift
   ("$@") >>"$LOG" 2>&1 &
   local pid=$! pct=3
+  local frames=("⠋" "⠙" "⠹" "⠸" "⠼" "⠴" "⠦" "⠧" "⠇" "⠏")
+  local i=0
   [[ -t 1 ]] && printf "\e[?25l"
   while kill -0 "$pid" 2>/dev/null; do
     pct=$(( pct + (RANDOM % 8) + 1 ))
     (( pct > 94 )) && pct=94
-    local bar filled=$(( pct * 30 / 100 )) empty=$(( 30 - filled ))
-    bar="$(printf '%0.s█' $(seq 1 $filled))$(printf '%0.s░' $(seq 1 $empty))"
-    printf "\r  ${CP}[${CG}%s${CP}]${R} ${CW}%s${R} ${CG2}%d%%${R}" "$bar" "$label" "$pct"
+    printf "\r  ${CP}%s${R} ${CW}%s${R} ${CG2}%d%%${R}" "${frames[$((i % 10))]}" "$label" "$pct"
+    i=$(( i + 1 ))
     sleep 0.1
   done
   wait "$pid"; local rc=$?
-  printf "\r  ${CP}[${CG}%s${CP}]${R} ${CW}%s${R} ${CG}100%% ✓${R}\n" "$(printf '%0.s█' $(seq 1 30))" "$label"
+  printf "\r  ${CG}✓${R} ${CW}%s${R} ${CG}[100%%]${R}\n" "$label"
   [[ -t 1 ]] && printf "\e[?25h"
   return $rc
 }
