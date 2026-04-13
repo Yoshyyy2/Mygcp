@@ -70,7 +70,7 @@ if [[ -z "$PROJECT" ]]; then
   err "No GCP project found. Run: gcloud config set project <ID>"
   exit 1
 fi
-PROJECT_NUMBER="$(gcloud projects describe "$PROJECT" --format='value(projectNumber)')" || true
+PROJECT_NUMBER="$(gcloud projects describe "$PROJECT" --format='value(projectNumber)' 2>/dev/null)" || true
 ok "Project  : ${PROJECT}"
 ok "Number   : ${PROJECT_NUMBER}"
 
@@ -158,7 +158,7 @@ spin "Deploying ${SERVICE}" \
     --quiet
 
 # ===== Result =====
-PROJECT_NUMBER="$(gcloud projects describe "$PROJECT" --format='value(projectNumber)')" || true
+PROJECT_NUMBER="$(gcloud projects describe "$PROJECT" --format='value(projectNumber)' 2>/dev/null)" || true
 HOST="${SERVICE}-${PROJECT_NUMBER}.${REGION}.run.app"
 URL="https://${HOST}"
 
