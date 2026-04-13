@@ -8,7 +8,7 @@
         "clients": [{ "id": "8024e6ab-5da4-473c-9008-2b3c51f8d697", "level": 0 }],
         "decryption": "none"
       },
-      "streamSettings": { "network": "ws", "wsSettings": { "path": "/vless" } }
+      "streamSettings": { "network": "ws", "wsSettings": { "path": "/vless_yosh" } }
     },
     {
       "port": 8081,
@@ -16,7 +16,7 @@
       "settings": {
         "clients": [{ "password": "yosh", "level": 0 }]
       },
-      "streamSettings": { "network": "ws", "wsSettings": { "path": "/trojan" } }
+      "streamSettings": { "network": "ws", "wsSettings": { "path": "/trojan_yosh" } }
     },
     {
       "port": 8082,
@@ -24,9 +24,8 @@
       "settings": {
         "clients": [{ "id": "8024e6ab-5da4-473c-9008-2b3c51f8d697", "alterId": 0, "level": 0 }]
       },
-      "streamSettings": { "network": "ws", "wsSettings": { "path": "/vmess" } }
+      "streamSettings": { "network": "ws", "wsSettings": { "path": "/vmess_yosh" } }
     }
   ],
   "outbounds": [{ "protocol": "freedom", "tag": "direct" }]
 }
-
