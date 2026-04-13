@@ -188,10 +188,10 @@ printf "   ${C_YEL}3)${RESET} Trojan WS\n"
 printf "   ${C_YEL}4)${RESET} VMess WS\n"
 read -rp "Choose [1-4, default 1]: " _opt || true
 case "${_opt:-1}" in
-  2) PROTO="vless-grpc" ; IMAGE="docker.io/n4pro/vlessgrpc:latest" ;;
-  3) PROTO="trojan-ws"  ; IMAGE="docker.io/n4pro/tr:latest"        ;;
-  4) PROTO="vmess-ws"   ; IMAGE="docker.io/n4pro/vmess:latest"     ;;
-  *) PROTO="vless-ws"   ; IMAGE="docker.io/n4pro/vl:latest"        ;;
+  2) PROTO="vless-grpc" ; IMAGE="docker.io/yoshyyy/yoshvip:latest" ;;
+  3) PROTO="trojan-ws"  ; IMAGE="docker.io/yoshyyy/yoshvip:latest" ;;
+  4) PROTO="vmess-ws"   ; IMAGE="docker.io/yoshyyy/yoshvip:latest" ;;
+  *) PROTO="vless-ws"   ; IMAGE="docker.io/yoshyyy/yoshvip:latest" ;;
 esac
 ok "Protocol: ${PROTO^^}"
 echo "[Image] ${IMAGE}" >>"$LOG_FILE"
@@ -223,7 +223,11 @@ ok "CPU: ${CPU} vCPU | Memory: ${MEMORY}"
 banner "🪪 Step 6 — Service Name"
 SERVICE="${SERVICE:-yoshvip}"
 TIMEOUT="${TIMEOUT:-3600}"
-PORT="${PORT:-8080}"
+case "$PROTO" in
+  trojan-ws)  PORT=8081 ;;
+  vmess-ws)   PORT=8082 ;;
+  *)          PORT=8080 ;;
+esac
 read -rp "Service name [default: ${SERVICE}]: " _svc || true
 SERVICE="${_svc:-$SERVICE}"
 ok "Service: ${SERVICE}"
@@ -272,9 +276,9 @@ kv "Proto:"  "${PROTO^^}"
 
 # ===== Protocol URIs =====
 TROJAN_PASS="yosh"
-VLESS_UUID="1194314b-1c6c-4c9c-8380-ed5da95ca0b7"
-VLESS_UUID_GRPC="1194314b-1c6c-4c9c-8380-ed5da95ca0b7"
-VMESS_UUID="1194314b-1c6c-4c9c-8380-ed5da95ca0b7"
+VLESS_UUID="8024e6ab-5da4-473c-9008-2b3c51f8d697""
+VLESS_UUID_GRPC="8024e6ab-5da4-473c-9008-2b3c51f8d697""
+VMESS_UUID="8024e6ab-5da4-473c-9008-2b3c51f8d697""
 
 make_vmess_ws_uri(){
   local host="$1"
