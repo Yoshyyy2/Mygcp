@@ -213,9 +213,11 @@ ok "Region: ${REGION}"
 
 # ===== Step 5: Resources =====
 banner "⚙️  Step 5 — Resources"
-read -rp "CPU [1/2/4, default 1]: " _cpu || true
+printf "   CPU options: 1 / 2 / 4 / 6 / 8\n"
+read -rp "CPU [default 1]: " _cpu || true
 CPU="${_cpu:-1}"
-read -rp "Memory [512Mi/1Gi/2Gi, default 512Mi]: " _mem || true
+printf "   Memory options: 512Mi / 1Gi / 2Gi / 4Gi / 6Gi / 8Gi\n"
+read -rp "Memory [default 512Mi]: " _mem || true
 MEMORY="${_mem:-512Mi}"
 ok "CPU: ${CPU} vCPU | Memory: ${MEMORY}"
 
