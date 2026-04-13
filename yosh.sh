@@ -170,10 +170,10 @@ UUID="8024e6ab-5da4-473c-9008-2b3c51f8d697"
 
 case "$PROTO" in
   trojan-ws)
-    URI="trojan://${TROJAN_PASS}@vpn.googleapis.com:443?path=%2Ftrojan&security=tls&host=${HOST}&type=ws#Yosh-Trojan-WS"
+    URI="trojan://${TROJAN_PASS}@vpn.googleapis.com:443?path=%2Ftrojan_yosh&security=tls&host=${HOST}&type=ws#Yosh-Trojan-WS"
     ;;
   vless-ws)
-    URI="vless://${UUID}@vpn.googleapis.com:443?path=%2Fvless&security=tls&encryption=none&host=${HOST}&type=ws#Yosh-VLESS-WS"
+    URI="vless://${UUID}@vpn.googleapis.com:443?path=%2Fvless_yosh&security=tls&encryption=none&host=${HOST}&type=ws#Yosh-VLESS-WS"
     ;;
   vless-grpc)
     URI="vless://${UUID}@vpn.googleapis.com:443?mode=gun&security=tls&encryption=none&type=grpc&serviceName=yosh-grpc&sni=${HOST}#Yosh-VLESS-gRPC"
