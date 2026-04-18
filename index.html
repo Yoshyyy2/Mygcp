@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yosh VIP</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #020408;
+    --grid: rgba(0,255,180,0.03);
+    --cyan: #00ffb4;
+    --purple: #9d4edd;
+    --card: rgba(0,255,180,0.04);
+    --border: rgba(0,255,180,0.15);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: #e0ffe8;
+    font-family: 'Share Tech Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  body::before, body::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  body::before {
+    width: 500px; height: 500px;
+    background: rgba(0,255,180,0.06);
+    top: -100px; left: -100px;
+  }
+  body::after {
+    width: 400px; height: 400px;
+    background: rgba(157,78,221,0.08);
+    bottom: -100px; right: -100px;
+  }
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+  }
+  .header { text-align: center; }
+  .logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: 8px;
+    background: linear-gradient(135deg, var(--cyan), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: pulse 3s ease-in-out infinite;
+  }
+  .tagline {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: rgba(0,255,180,0.5);
+    margin-top: 8px;
+    text-transform: uppercase;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+  }
+  .status-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 8px 20px;
+    border-radius: 100px;
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    background: var(--cyan);
+    border-radius: 50%;
+    animation: blink 1.5s ease-in-out infinite;
+    box-shadow: 0 0 8px var(--cyan);
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .card {
+    width: 100%;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: linear-gradient(180deg, var(--cyan), transparent);
+  }
+  .card:hover { border-color: rgba(0,255,180,0.4); }
+  .card-label {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--cyan);
+    margin-bottom: 14px;
+    opacity: 0.7;
+  }
+  .config-box {
+    background: rgba(0,0,0,0.4);
+    border: 1px solid rgba(0,255,180,0.08);
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 11px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.6);
+    word-break: break-all;
+    margin-bottom: 16px;
+    min-height: 80px;
+  }
+  .copy-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, rgba(0,255,180,0.15), rgba(157,78,221,0.15));
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--cyan);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+  .copy-btn:hover {
+    background: linear-gradient(135deg, rgba(0,255,180,0.25), rgba(157,78,221,0.25));
+    border-color: var(--cyan);
+    box-shadow: 0 0 20px rgba(0,255,180,0.1);
+  }
+  .copy-btn.copied {
+    color: #fff;
+    border-color: var(--cyan);
+    background: linear-gradient(135deg, rgba(0,255,180,0.3), rgba(157,78,221,0.3));
+  }
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: rgba(0,255,180,0.15);
+    border: 1px solid var(--cyan);
+    color: var(--cyan);
+    padding: 12px 24px;
+    border-radius: 100px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    transition: transform 0.3s ease;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .footer {
+    font-size: 10px;
+    color: rgba(0,255,180,0.2);
+    letter-spacing: 2px;
+    text-align: center;
+  }
+  .scanline {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 999;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 2px,
+      rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px
+    );
+  }
+</style>
+</head>
+<body>
+<div class="scanline"></div>
+<div class="container">
+  <div class="header">
+    <div class="logo">YOSH VIP</div>
+    <div class="tagline">Secure · Fast · Reliable</div>
+  </div>
+  <div class="status-bar">
+    <div class="dot"></div>
+    <span>SYSTEM ONLINE</span>
+  </div>
+  <div class="card">
+    <div class="card-label">▸ VLESS Protocol</div>
+    <div class="config-box" id="vless-config">Generating...</div>
+    <button class="copy-btn" onclick="copyConfig('vless-config', this)">⬡ Copy Config</button>
+  </div>
+  <div class="card">
+    <div class="card-label">▸ Trojan Protocol</div>
+    <div class="config-box" id="trojan-config">Generating...</div>
+    <button class="copy-btn" onclick="copyConfig('trojan-config', this)">⬡ Copy Config</button>
+  </div>
+  <div class="card">
+    <div class="card-label">▸ VMess Protocol</div>
+    <div class="config-box" id="vmess-config">Generating...</div>
+    <button class="copy-btn" onclick="copyConfig('vmess-config', this)">⬡ Copy Config</button>
+  </div>
+  <div class="footer">YOSH VIP // GCP CLOUD RUN // 2025</div>
+</div>
+<div class="toast" id="toast">✓ COPIED TO CLIPBOARD</div>
+<script>
+  // Config values
+  const VLESS_UUID = "8024e6ab-5da4-473c-9008-2b3c51f8d697";
+  const VMESS_UUID = "8024e6ab-5da4-473c-9008-2b3c51f8d697";
+  const TROJAN_PASS = "yosh";
+  const CDN = "firebase-settings.crashlytics.com";
+  const SNI = "www.mayabank.ph";
+  const VLESS_PATH = "/Yosh";
+  const TROJAN_PATH = "/Ryo";
+  const VMESS_PATH = "/Xyoshy";
+
+  // Auto-detect host from current URL
+  const HOST = window.location.hostname;
+
+  // Build VMess base64
+  function buildVmess(host) {
+    const obj = {
+      v: "2", ps: "Yosh-VMess",
+      add: CDN, port: "443",
+      id: VMESS_UUID, aid: "0",
+      scy: "zero", net: "ws",
+      type: "none", host: host,
+      path: VMESS_PATH, tls: "tls",
+      sni: SNI, alpn: "http/1.1",
+      fp: "randomized"
+    };
+    return "vmess://" + btoa(JSON.stringify(obj));
+  }
+
+  // Generate all configs
+  function generateConfigs() {
+    const host = HOST;
+    const vless = `vless://${VLESS_UUID}@${CDN}:443?path=${encodeURIComponent(VLESS_PATH)}&security=tls&encryption=none&host=${host}&type=ws&sni=${SNI}&headerType=none#Yosh-VLESS-WS`;
+    const trojan = `trojan://${TROJAN_PASS}@${CDN}:443?path=${encodeURIComponent(TROJAN_PATH)}&security=tls&host=${host}&type=ws&sni=${SNI}&headerType=none#Yosh-Trojan-WS`;
+    const vmess = buildVmess(host);
+
+    document.getElementById('vless-config').innerText = vless;
+    document.getElementById('trojan-config').innerText = trojan;
+    document.getElementById('vmess-config').innerText = vmess;
+  }
+
+  generateConfigs();
+
+  function copyConfig(id, btn) {
+    const text = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.classList.add('copied');
+      btn.innerText = '✓ Copied!';
+      const toast = document.getElementById('toast');
+      toast.classList.add('show');
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.innerText = '⬡ Copy Config';
+        toast.classList.remove('show');
+      }, 2000);
+    });
+  }
+</script>
+</body>
+</html>
