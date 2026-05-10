@@ -123,9 +123,9 @@ read -rp "  $(printf "${CW}Service name${R} [default: yoshvip]: ")" _svc || true
 SERVICE="${_svc:-yoshvip}"
 TIMEOUT=3600
 case "$PROTO" in
-  trojan-ws) PORT=8081 ;;
-  vmess-ws)  PORT=8082 ;;
-  *)         PORT=8080 ;;
+  trojan-ws) PORT=8080 ;;
+  vmess-ws)  PORT=8080 ;;
+  *) PORT=8080 ;;
 esac
 ok "Service  : ${SERVICE}"
 ok "Port     : ${PORT}"

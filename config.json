@@ -4,7 +4,7 @@
   },
   "inbounds": [
     {
-      "port": 8080,
+      "port": 8081,
       "protocol": "vless",
       "settings": {
         "clients": [
@@ -23,7 +23,7 @@
       }
     },
     {
-      "port": 8081,
+      "port": 8082,
       "protocol": "trojan",
       "settings": {
         "clients": [
@@ -41,7 +41,7 @@
       }
     },
     {
-      "port": 8082,
+      "port": 8083,
       "protocol": "vmess",
       "settings": {
         "clients": [
