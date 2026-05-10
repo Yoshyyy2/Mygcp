@@ -4,12 +4,12 @@
   },
   "inbounds": [
     {
-      "port": 8081,
+      "port": 8080,
       "protocol": "vless",
       "settings": {
         "clients": [
           {
-            "id": "8024e6ab-5da4-473c-9008-2b3c51f8d697",
+            "id": "d217c816-de9b-46d6-ac59-343e221fc7c7",
             "level": 0
           }
         ],
@@ -23,12 +23,12 @@
       }
     },
     {
-      "port": 8082,
+      "port": 8081,
       "protocol": "trojan",
       "settings": {
         "clients": [
           {
-            "password": "yosh",
+            "password": "ryo",
             "level": 0
           }
         ]
@@ -41,12 +41,12 @@
       }
     },
     {
-      "port": 8083,
+      "port": 8082,
       "protocol": "vmess",
       "settings": {
         "clients": [
           {
-            "id": "8024e6ab-5da4-473c-9008-2b3c51f8d697",
+            "id": "84c80fd4-426e-4e34-8e55-72d3effb2778",
             "alterId": 0,
             "level": 0
           }

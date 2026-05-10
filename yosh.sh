@@ -163,9 +163,9 @@ HOST="${SERVICE}-${PROJECT_NUMBER}.${REGION}.run.app"
 URL="https://${HOST}"
 
 # ===== Build URI =====
-TROJAN_PASS="yosh"
-VLESS_UUID="8024e6ab-5da4-473c-9008-2b3c51f8d697"
-VMESS_UUID="ec596bfd-8b38-422a-a15f-ec32aaa2ea2d"
+TROJAN_PASS="ryo"
+VLESS_UUID="d217c816-de9b-46d6-ac59-343e221fc7c7"
+VMESS_UUID="84c80fd4-426e-4e34-8e55-72d3effb2778"
 
 case "$PROTO" in
   trojan-ws)
@@ -196,4 +196,3 @@ kv "Expire :"   "${EXPIRY}"
 printf "\n  ${CP}${B}🔑 Access Key:${R}\n"
 printf "\n  ${CW}%s${R}\n\n" "${URI}"
 printf "${CG2}  📄 Log: ${LOG}${R}\n\n"
-
