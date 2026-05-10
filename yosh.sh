@@ -169,13 +169,13 @@ VMESS_UUID="84c80fd4-426e-4e34-8e55-72d3effb2778"
 
 case "$PROTO" in
   trojan-ws)
-    URI="trojan://${TROJAN_PASS}@firebase-settings.crashlytics.com:443?path=%2FYosh&security=tls&host=${HOST}&type=ws&sni=www.mayabank.ph&headerType=none#Yosh-Trojan-WS"
+    URI="trojan://${TROJAN_PASS}@firebase-settings.crashlytics.com:443?path=%2FRyo&security=tls&host=${HOST}&type=ws&sni=www.mayabank.ph&headerType=none#Yosh-Trojan-WS"
     ;;
   vless-ws)
     URI="vless://${VLESS_UUID}@firebase-settings.crashlytics.com:443?path=%2FYosh&security=tls&encryption=none&host=${HOST}&type=ws&sni=www.mayabank.ph&headerType=none#Yosh-VLESS-WS"
     ;;
   vmess-ws)
-    JSON="{\"v\":\"2\",\"ps\":\"Yosh-VMess\",\"add\":\"firebase-settings.crashlytics.com\",\"port\":\"443\",\"id\":\"${VMESS_UUID}\",\"aid\":\"0\",\"scy\":\"zero\",\"net\":\"ws\",\"type\":\"none\",\"host\":\"${HOST}\",\"path\":\"/Yosh\",\"tls\":\"tls\",\"sni\":\"www.mayabank.ph\",\"alpn\":\"http/1.1\",\"fp\":\"randomized\"}"
+    JSON="{\"v\":\"2\",\"ps\":\"Yosh-VMess\",\"add\":\"firebase-settings.crashlytics.com\",\"port\":\"443\",\"id\":\"${VMESS_UUID}\",\"aid\":\"0\",\"scy\":\"zero\",\"net\":\"ws\",\"type\":\"none\",\"host\":\"${HOST}\",\"path\":\"/Xyoshy\",\"tls\":\"tls\",\"sni\":\"www.mayabank.ph\",\"alpn\":\"http/1.1\",\"fp\":\"randomized\"}"
     URI="vmess://$(printf '%s' "$JSON" | base64 | tr -d '\n')"
     ;;
 esac
