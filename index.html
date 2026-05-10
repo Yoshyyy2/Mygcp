@@ -218,9 +218,9 @@
 <script>
 const HOST = window.location.host;
 const CREDS = {
-  vless:  { uuid: 'd217c816-de9b-46d6-ac59-343e221fc7c7', path: '/Yosh' },
-  vmess:  { uuid: '84c80fd4-426e-4e34-8e55-72d3effb2778', path: '/Xyoshy' },
-  trojan: { pass: 'ryo', path: '/Ryo' }
+  vless:  { uuid: 'd217c816-de9b-46d6-ac59-343e221fc7c7', path: '/Yosh', pathH: '/YoshH' },
+  vmess:  { uuid: '84c80fd4-426e-4e34-8e55-72d3effb2778', path: '/Xyoshy', pathH: '/XyoshyH' },
+  trojan: { pass: 'ryo', path: '/Ryo', pathH: '/RyoH' }
 };
 let proto='vless', trans='ws';
 
@@ -262,18 +262,21 @@ function buildConfig(){
   const address=document.getElementById('addressSel').value;
   const sni=document.getElementById('sniSel').value;
   const box=document.getElementById('configBox');
-  const network=trans==='ws'?'ws':'httpupgrade';
+  const network=trans==="ws"?"ws":"httpupgrade"; const isHU=trans==="httpupgrade";
   let uri='';
   if(proto==='vless'){
-    const{uuid,path}=CREDS.vless;
-    uri=`vless://${uuid}@${address}:443?encryption=none&security=tls&sni=${sni}&type=${network}&path=${encodeURIComponent(path)}&host=${HOST}#Yosh-VLESS`;
+    const{uuid,path,pathH}=CREDS.vless;
+    const vp=isHU?pathH:path;
+    uri=`vless://${uuid}@${address}:443?encryption=none&security=tls&sni=${sni}&type=${network}&path=${encodeURIComponent(vp)}&host=${HOST}#Yosh-VLESS`;
   }else if(proto==='vmess'){
-    const{uuid,path}=CREDS.vmess;
-    const j=JSON.stringify({v:'2',ps:'Yosh-VMess',add:address,port:'443',id:uuid,aid:'0',scy:'zero',net:network,type:'none',host:HOST,path:path,tls:'tls',sni:sni,alpn:'http/1.1',fp:'randomized'});
+    const{uuid,path,pathH}=CREDS.vmess;
+    const vp=isHU?pathH:path;
+    const j=JSON.stringify({v:'2',ps:'Yosh-VMess',add:address,port:'443',id:uuid,aid:'0',scy:'zero',net:network,type:'none',host:HOST,path:vp,tls:'tls',sni:sni,alpn:'http/1.1',fp:'randomized'});
     uri='vmess://'+btoa(j);
   }else{
-    const{pass,path}=CREDS.trojan;
-    uri=`trojan://${pass}@${address}:443?security=tls&sni=${sni}&type=${network}&path=${encodeURIComponent(path)}&host=${HOST}#Yosh-Trojan`;
+    const{pass,path,pathH}=CREDS.trojan;
+    const vp=isHU?pathH:path;
+    uri=`trojan://${pass}@${address}:443?security=tls&sni=${sni}&type=${network}&path=${encodeURIComponent(vp)}&host=${HOST}#Yosh-Trojan`;
   }
   box.textContent=uri;
   box.classList.remove('empty');
